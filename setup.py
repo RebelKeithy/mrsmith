@@ -9,7 +9,7 @@ with open('LICENSE') as f:
 
 setup(
     name='mrsmith-rebelkeithy',
-    version='0.0.2',
+    version='0.0.4',
     author='Mitchell Manning',
     author_email='mitchellmanning@gmail.com',
     description='A library to generate random names',
@@ -17,5 +17,8 @@ setup(
     long_description_content_type="text/markdown",
     url='https://github.com/RebelKeithy/mrsmith',
     license=license,
-    packages=find_packages(exclude=('tests', 'docs'))
+    packages=find_packages(exclude=('tests', 'docs')),
+    package_data={
+        "": ["*.data"],
+    }
 )
