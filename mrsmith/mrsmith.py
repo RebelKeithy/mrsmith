@@ -1,66 +1,47 @@
 import random
+import constants
+from namelist import NameList
 
-RACE_ALL = 0
-RACE_WHITE = 1
-RACE_BLACK = 2
-RACE_API = 3
-RACE_AIAN = 4
-RACE_2RACE = 5
-RACE_HISPANIC = 6
+first_names = None
+male_names = None
+female_names = None
+last_names = None
 
-GENDER_ALL = 0
-GENDER_MALE = 1
-GENDER_FEMALE = 2
 
-class Names:
-    def __init__(self):
-        self.names = []
-        self.totals = []
+def load_names():
+    global first_names
+    global male_names
+    global female_names
+    global last_names
+    first_names = NameList('firstnames.data')
+    male_names = NameList('malenames.data')
+    female_names = NameList('femalenames.data')
+    last_names = NameList('lastnames.data')
 
-    def load(self, filename):
-        self.names = []
-        self.totals = [0, 0, 0, 0, 0, 0, 0]
-        with open(filename) as f:
-            f.readline()
-            for line in f:
-                name = line.strip().split(',')
-                entry = [name[0].capitalize(), int(name[1])] + [int(int(name[1]) * (float(prob)/100)) for prob in name[2:]]
-                self.names.append(entry)
-                for i in range(0, 7):
-                    self.totals[i] += entry[i+1]
 
-    def random(self, race=RACE_ALL):
-        roll = random.randint(0, int(self.totals[race]))
-        sum = 0
-        for name in self.names:
-            sum += name[1+race]
-            if sum > roll:
-                return name[0]
+def random_name(race=constants.RACE_ALL, gender=constants.GENDER_ALL):
+    if first_names is None:
+        load_names()
+    if gender == constants.GENDER_ALL:
+        return first_names.random(race), last_names.random(race)
+    elif gender == constants.GENDER_MALE:
+        return male_names.random(race), last_names.random(race)
+    elif gender == constants.GENDER_FEMALE:
+        return female_names.random(race), last_names.random(race)
 
-firstnames = Names()
-firstnames.load('mrsmith/firstnames.data')
-malenames = Names()
-malenames.load('mrsmith/malenames.data')
-femalenames = Names()
-femalenames.load('mrsmith/femalenames.data')
-lastnames = Names()
-lastnames.load('mrsmith/lastnames.data')
 
-def random_name(race=RACE_ALL, gender=GENDER_ALL):
-    if gender == GENDER_ALL:
-        return firstnames.random(race), lastnames.random(race)
-    elif gender == GENDER_MALE:
-        return malenames.random(race), lastnames.random(race)
-    elif gender == GENDER_FEMALE:
-        return femalenames.random(race), lastnames.random(race)
+def first_name(race=constants.RACE_ALL, gender=constants.GENDER_ALL):
+    if first_names is None:
+        load_names()
+    if gender == constants.GENDER_ALL:
+        return first_names.random(race)
+    elif gender == constants.GENDER_MALE:
+        return male_names.random(race)
+    elif gender == constants.GENDER_FEMALE:
+        return female_names.random(race)
 
-def first_name(race=RACE_ALL, gender=GENDER_ALL):
-    if gender == GENDER_ALL:
-        return firstnames.random(race)
-    elif gender == GENDER_MALE:
-        return malenames.random(race)
-    elif gender == GENDER_FEMALE:
-        return femalenames.random(race)
 
-def last_name(race=RACE_ALL):
-    return lastnames.random(race)
+def last_name(race=constants.RACE_ALL):
+    if first_names is None:
+        load_names()
+    return last_names.random(race)
