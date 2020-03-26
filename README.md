@@ -6,7 +6,7 @@ Additionally the race category can be specified to use a specific distribution.
 # Using mrsmith
 To generate a random name simply import the package and call one of these methods with race and gender being optional parameters.
 
-    mrsmith.random(race, gender) # Returns a random first and last name as a list
+    mrsmith.random_name(race, gender) # Returns a random first and last name as a list
     mrsmith.first_name(race, gender) # Returns a random first name
     mrsmith.last_name(race) # Returns a random last name
     
