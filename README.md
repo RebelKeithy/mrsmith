@@ -6,9 +6,10 @@ Additionally the race category can be specified to use a specific distribution.
 # Using mrsmith
 To generate a random name simply import the package and call one of these methods with race and gender being optional parameters.
 
-    mrsmith.random_name(race, gender) # Returns a random first and last name as a list
-    mrsmith.first_name(race, gender) # Returns a random first name
-    mrsmith.last_name(race) # Returns a random last name
+    mrsmith.full_name() # Returns a random first and last name of any race/gender as a tuple
+    mrsmith.full_name("hispanic", "male") # Returns a random first and last name of the specified race and gender
+    mrsmith.first_name("aian", "female") # Returns a random first name
+    mrsmith.last_name("api") # Returns a random last name
     
 # How It Works
 The data used for this library is a list of names that includes the proportion of people with that name and a percentage for how many people with that name fall into each race category.    

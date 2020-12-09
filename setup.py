@@ -9,7 +9,7 @@ with open('LICENSE') as f:
 
 setup(
     name='mrsmith-rebelkeithy',
-    version='0.0.4',
+    version='0.0.5',
     author='Mitchell Manning',
     author_email='mitchellmanning@gmail.com',
     description='A library to generate random names',
